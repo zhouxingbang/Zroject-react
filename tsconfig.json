@@ -10,6 +10,16 @@
         "target": "es5",
         "allowJs": true,
         "jsx": "react",
+        "types": ["node"],
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "~*": [
+                "src/*"
+            ]
+        }
     },
     "include": [
         "./src/**/*"
