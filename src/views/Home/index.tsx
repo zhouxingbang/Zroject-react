@@ -5,7 +5,7 @@ import SideDrawer from './SideDrawer';
 export default function Home() {
     return (
         <div>
-            <TitleBar />
+            <TitleBar/>
             <SideDrawer open={true}/>
         </div>
     )

@@ -20,10 +20,10 @@ const sideDrawerStyle = {
     paper: {
         height: "100%",
         backgroundColor: 'transparent',
-        borderImage: `url(${BgLeftSide}) 0 36 0 0 fill stretch`
+        borderImage: `url(${BgLeftSide}) 0 20 0 0 fill stretch`
     },
     paperAnchorDockedLeft: {
-        borderWidth: 90
+        borderWidth: 70
     },
     paperAnchorDockedRight: {
         borderWidth: 0

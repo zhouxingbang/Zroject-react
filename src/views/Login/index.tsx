@@ -5,8 +5,6 @@ import style from '~assets/jss/views/loginStyle';
 import EditField from '~components/Input/EditField';
 import ButtonEx from '~components/Input/ButtonEx';
 
-const User = require('~assets/img/user.png');
-
 export default function Login() {
 
     const classes = makeStyles(createStyles(style))();
@@ -18,7 +16,8 @@ export default function Login() {
     };
 
     return (
-        <Box className={classes.root} display="flex" 
+        <Box className={classes.root} 
+        display="flex" 
         flexDirection="column" 
         justifyContent="center" alignItems="center">
             <div className={classes.content}>
