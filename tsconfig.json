@@ -1,8 +1,12 @@
 {
     "compilerOptions": {
+        "lib": ["es6", "dom"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "strict": true,
         "esModuleInterop": true,
-        "module": "es6",
+        "module": "commonjs",
         "moduleResolution": "node",
         "target": "es5",
         "allowJs": false,

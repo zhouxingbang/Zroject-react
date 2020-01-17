@@ -1,19 +1,38 @@
-import * as React from 'react';
+import React from 'react';
 import { makeStyles, createStyles, Box, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import style from '~assets/jss/views/loginStyle';
-import EditField from '~components/Input/EditField';
-import ButtonEx from '~components/Input/ButtonEx';
+import style from '~assets/tss/views/loginStyle';
+import TextFieldEx from '~components/TextFieldEx';
+import ButtonEx from '~components/ButtonEx';
+import serverMgr from '~code/ServerMgr';
+import CookieApi from '~code/CookieApi';
+
+const AccountCookie:string = "lubango_account";
+
+type AccountType = {
+    userName: string;
+    password?: string;
+    serverUrl: string;
+}
 
 export default function Login() {
 
-    const classes = makeStyles(createStyles(style))();
-
-    let history = useHistory();
+    const classes = makeStyles((style))();
+    const history = useHistory();
 
     const onLogin = () => {
-        history.push("/zroject");
     };
+    
+    React.useEffect(() => {
+        try {
+            let accountList = JSON.parse(CookieApi.getItem(AccountCookie));
+            if(!Array.isArray(accountList)) {
+                accountList = [];
+            }
+        }
+        catch(error) {
+        };
+    }, []);
 
     return (
         <Box className={classes.root} 
@@ -23,18 +42,26 @@ export default function Login() {
             <div className={classes.content}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <EditField 
+                        <TextFieldEx 
                         placeholder="请输入用户名..." 
                         defaultValue=""
                         startIcon={require('~assets/img/user.png')}
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <EditField 
+                        <TextFieldEx 
                         placeholder="请输入密码..." 
                         defaultValue="" 
                         type='password'
                         startIcon={require('~assets/img/passwd.png')}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextFieldEx 
+                        placeholder="请输入地址..." 
+                        defaultValue="" 
+                        type='password'
+                        startIcon={require('~assets/img/serverurl.png')}
                         />
                     </Grid>
                     <Grid item xs={12}>

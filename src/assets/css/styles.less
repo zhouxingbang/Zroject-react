@@ -1,3 +1,13 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    background-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 html body {
     margin: 0;
 }
@@ -6,4 +16,21 @@ html body {
     width: 100vw;
     height: 100vh;
     margin: 0;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 1px
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3)
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.0);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1)
 }

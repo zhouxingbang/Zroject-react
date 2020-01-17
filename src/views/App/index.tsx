@@ -1,19 +1,26 @@
-import * as React from 'react';
+import React from 'react';
 import {
     HashRouter as Router, 
     Route,
     Switch
 } from 'react-router-dom';
 import Login from '../Login';
-import Home from '../Home';
+import Enterprise from '../Enterprise';
 
 export default function App() {
+
+    React.useEffect(() => {
+        return () => {
+            
+        };
+    }, []);
+
     return (
         <Router>
             <div className="app">
                 <Switch>
                     <Route exact path="/" component={Login}/>
-                    <Route path="/zroject" component={Home}/>
+                    <Route path="/enterprise" component={Enterprise}/>
                 </Switch>
             </div>
         </Router>
