@@ -17,14 +17,12 @@ export default function TreeSelect(props: TreeSelectProps) {
     
     const [curNode, setCurNode] = React.useState<TreeNodeType|null>(null);
     const anchorEl = React.useRef<any>(null);
-    const [treeVisible, setTreeVisible] = React.useState(false);
+    const [dropDown, setDropDown] = React.useState(false);
 
     const {
         data = [],
         dropHeight = 280
     } = props;
-
-    console.log(anchorEl.current, anchorEl.current ? anchorEl.current.clientWidth : 0);
 
     const classes = makeStyles(createStyles({
         root: {
@@ -55,7 +53,7 @@ export default function TreeSelect(props: TreeSelectProps) {
 
     const onTreeClicked = (node:TreeNodeType) => {
         setCurNode(node);
-        setTreeVisible(false);
+        setDropDown(false);
         if(props.onChanged) {
             props.onChanged(node);
         }
@@ -71,7 +69,7 @@ export default function TreeSelect(props: TreeSelectProps) {
     }, [props.data]);
 
     const onClicked = () => {
-        setTreeVisible(!treeVisible);
+        setDropDown(!dropDown);
     }
 
     return (
@@ -87,10 +85,10 @@ export default function TreeSelect(props: TreeSelectProps) {
                 imageHover={require('~assets/img/down.png')}
                 />
             </div>
-            <Popper className={classes.poper} open={treeVisible} anchorEl={anchorEl.current} placement="bottom">
+            <Popper className={classes.poper} open={dropDown} anchorEl={anchorEl.current} placement="bottom">
                 <div 
                 style={{width:'100%',height:'100%',overflowY:'auto',overflowX:'hidden'}}>
-                    <ClickAwayListener onClickAway={() => {setTreeVisible(false);}}>
+                    <ClickAwayListener onClickAway={() => {setDropDown(false);}}>
                         <div style={{marginLeft:10,marginRight:10}}>
                             <TreeViewEx 
                             data={data}

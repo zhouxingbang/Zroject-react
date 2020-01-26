@@ -3895,10 +3895,10 @@ parcel-plugin-less-js-enabled@^1.0.2:
   dependencies:
     parcel-bundler "^1.12.3"
 
-parcel-plugin-static-files-copy@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.npm.taobao.org/parcel-plugin-static-files-copy/download/parcel-plugin-static-files-copy-2.2.1.tgz#22fdf02df427f80a6e7cad7185f2d6926286f2ec"
-  integrity sha1-Iv3wLfQn+ApufK1xhfLWkmKG8uw=
+parcel-plugin-static-files-copy@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.npm.taobao.org/parcel-plugin-static-files-copy/download/parcel-plugin-static-files-copy-2.2.2.tgz#165e12f543356214b05b4e3348b6403a26ed3590"
+  integrity sha1-Fl4S9UM1YhSwW04zSLZAOibtNZA=
   dependencies:
     file-system "2.2.2"
     minimatch "3.0.4"

@@ -31,7 +31,7 @@ const TextFieldEx = React.forwardRef((props: TextFieldExProps, ref?: React.Ref<a
             setValue(defaultValue);
             handleChanged(defaultValue as string);
         }
-    }, [defaultValue]);
+    }, [props.defaultValue]);
 
     const classes = makeStyles(createStyles({
         root: {

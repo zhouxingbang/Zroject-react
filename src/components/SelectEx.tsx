@@ -7,23 +7,29 @@ import {
     createStyles,
     Typography, 
     Popper, 
-    ClickAwayListener
+    ClickAwayListener,
+    List
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ListItemEx from './ListItemEx';
+import FontStyles from '~assets/tss/fontStyle';
 
 export interface SelectExProps extends TextFieldExProps {
     data?: string[];
+    onChanged?(value:string): void;
 }
 
 export default function SelectEx(props:SelectExProps) {
 
     const {
-        data = [],
+        data = ['333', '44444'],
+        defaultValue = "",
         ...other
     } = props;
 
     const anchorEl = React.useRef<any>(null);
     const [dropDown, setDropDown] = React.useState<boolean>(false);
+    const [value, setValue] = React.useState(defaultValue);
 
     const classes = makeStyles(createStyles({
         arrowDown: {
@@ -35,22 +41,52 @@ export default function SelectEx(props:SelectExProps) {
             marginTop: -10
         },
         poper: {
-            //height: dropHeight,
             width: anchorEl.current ? anchorEl.current.clientWidth : 280,
             zIndex: 1500,
             backgroundColor: '#303e44'
+        },
+        dropText: {
+            ...FontStyles.labelFont,
+            '&:hover': {
+                cursor: 'pointer',
+                backgroundColor: 'red'
+            }
         }
     }))();
+
+    React.useEffect(() => {
+        if(value !== defaultValue) {
+            setValue(defaultValue);
+            if(props.onChanged) {
+                props.onChanged(defaultValue as string);
+            }
+        }
+    }, [props.defaultValue]);
 
     const onDownClicked = () => {
         setDropDown(!dropDown);
     }
 
+    const onChanged = (name:string):void => {
+        setValue(name);
+        if(props.onChanged) {
+            props.onChanged(name);
+        }
+    }
+
+    const onItemClicked = (name:string):void => {
+        if(name !== value) {
+            setValue(name);
+        }
+    }
+
     return (
         <React.Fragment>
             <TextFieldEx
-            {...other} 
+            {...other}
+            defaultValue={value}
             ref={anchorEl}
+            handleChanged={onChanged}
             endAdornment={
                 <InputAdornment position="end">
                     <IconButton classes={{root: classes.arrowDown}} onClick={onDownClicked}>
@@ -59,11 +95,26 @@ export default function SelectEx(props:SelectExProps) {
                 </InputAdornment>
             }
             />
-            <Popper className={classes.poper} open={dropDown} anchorEl={anchorEl.current} placement="bottom">
+            <Popper 
+            className={classes.poper} 
+            open={dropDown} 
+            anchorEl={anchorEl.current} 
+            placement="bottom">
                 <div 
                 style={{width:'100%',height:'100%',overflowY:'auto',overflowX:'hidden'}}>
                     <ClickAwayListener onClickAway={() => {setDropDown(false);}}>
                         <div style={{marginLeft:10,marginRight:10}}>
+                            <List style={{width:'100%'}}>
+                                {data.map(el => (
+                                    <ListItemEx key={el} 
+                                    className={classes.dropText} 
+                                    onClick={() => {onItemClicked(el);}}
+                                    style={value !== el ? undefined : {backgroundColor:'red'}}
+                                    >
+                                        <Typography>{el}</Typography>
+                                    </ListItemEx>
+                                ))}
+                            </List>
                         </div>
                     </ClickAwayListener>
                 </div>          

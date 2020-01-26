@@ -6,6 +6,7 @@ import TextFieldEx from '~components/TextFieldEx';
 import ButtonEx from '~components/ButtonEx';
 import serverMgr from '~code/ServerMgr';
 import CookieApi from '~code/CookieApi';
+import SelectEx from '~components/SelectEx';
 
 const AccountCookie:string = "lubango_account";
 
@@ -42,7 +43,7 @@ export default function Login() {
             <div className={classes.content}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <TextFieldEx 
+                        <SelectEx 
                         placeholder="请输入用户名..." 
                         defaultValue=""
                         startIcon={require('~assets/img/user.png')}
