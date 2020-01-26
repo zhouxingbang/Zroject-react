@@ -1,3 +1,3 @@
-# luban-go
+# react-parcel-ts实践
 
-luban-go 客户端前端
+learn for myself
