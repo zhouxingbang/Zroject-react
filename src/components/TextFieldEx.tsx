@@ -1,27 +1,24 @@
 import React from 'react';
-import { TextField, InputAdornment, BaseTextFieldProps } from '@material-ui/core';
+import { TextField, InputAdornment } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
-export interface TextFieldExProps extends BaseTextFieldProps {
-    startIcon?: string | undefined;
+export interface TextFieldExProps {
+    startIcon?: string;
     endAdornment?: React.ReactNode;
-    handleChanged?(value:string): void;
+    onChanged?(value:string): void;
     height?: React.CSSProperties['height'];
     readonly?: boolean;
+    defaultValue?: unknown;
+    type?: string;
+    placeholder?: string;
 };
 
 const TextFieldEx = React.forwardRef((props: TextFieldExProps, ref?: React.Ref<any>) => {
 
     const {
-        startIcon,
-        endAdornment,
         defaultValue = "",
-        placeholder,
-        type,
-        handleChanged = (value:string):void => {},
         height = 32,
-        readonly = false,
-        ...other
+        readonly = false
     } = props;
 
     const [value, setValue] = React.useState(defaultValue);
@@ -29,9 +26,9 @@ const TextFieldEx = React.forwardRef((props: TextFieldExProps, ref?: React.Ref<a
     React.useEffect(() => {
         if(value !== defaultValue) {
             setValue(defaultValue);
-            handleChanged(defaultValue as string);
+            if(props.onChanged) props.onChanged(defaultValue as string);
         }
-    }, [props.defaultValue]);
+    }, [defaultValue]);
 
     const classes = makeStyles(createStyles({
         root: {
@@ -79,35 +76,34 @@ const TextFieldEx = React.forwardRef((props: TextFieldExProps, ref?: React.Ref<a
         }
     }))();
 
-    const onChanged = (event: React.FormEvent) => {
+    const handleChange = (event: any) => {
         setValue((event.target as any).value);
-        handleChanged((event.target as any).value);
+        if(props.onChanged) props.onChanged((event.target as any).value as string);
     };
 
     return (
         <TextField
-            {...other}
             ref={ref}
             variant="outlined"
             margin="dense"
             fullWidth
             autoComplete='off'
-            type={type}
-            placeholder={placeholder}
+            type={props.type}
+            placeholder={props.placeholder}
             value={value}
-            onChange={onChanged}
+            onChange={handleChange}
             classes={{
                 root: classes.root
             }}
             InputProps={{
                 readOnly: readonly,
                 startAdornment: (
-                    startIcon && <InputAdornment position="start">
-                        <img src={startIcon} alt=""/>
+                    props.startIcon && <InputAdornment position="start">
+                        <img src={props.startIcon} alt=""/>
                     </InputAdornment>                    
                 ),
-                endAdornment: (endAdornment && <InputAdornment position="end">
-                    {endAdornment}
+                endAdornment: (props.endAdornment && <InputAdornment position="end">
+                    {props.endAdornment}
                 </InputAdornment>),
                 classes: {
                     root: classes.outline,

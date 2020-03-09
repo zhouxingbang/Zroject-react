@@ -5,7 +5,6 @@ import {
     IconButton,
     makeStyles,
     createStyles,
-    Typography, 
     Popper, 
     ClickAwayListener,
     List
@@ -16,14 +15,14 @@ import FontStyles from '~assets/tss/fontStyle';
 
 export interface SelectExProps extends TextFieldExProps {
     data?: string[];
-    onChanged?(value:string): void;
 }
 
-export default function SelectEx(props:SelectExProps) {
+export default function SelectEx(props: SelectExProps) {
 
     const {
-        data = ['333', '44444'],
+        data = [],
         defaultValue = "",
+        onChanged = (value:string) => void {},
         ...other
     } = props;
 
@@ -49,7 +48,7 @@ export default function SelectEx(props:SelectExProps) {
             ...FontStyles.labelFont,
             '&:hover': {
                 cursor: 'pointer',
-                backgroundColor: 'red'
+                color: '#0fbdda'
             }
         }
     }))();
@@ -57,9 +56,7 @@ export default function SelectEx(props:SelectExProps) {
     React.useEffect(() => {
         if(value !== defaultValue) {
             setValue(defaultValue);
-            if(props.onChanged) {
-                props.onChanged(defaultValue as string);
-            }
+            onChanged(defaultValue as string);
         }
     }, [props.defaultValue]);
 
@@ -67,11 +64,9 @@ export default function SelectEx(props:SelectExProps) {
         setDropDown(!dropDown);
     }
 
-    const onChanged = (name:string):void => {
+    const handleChanged = (name:string):void => {
         setValue(name);
-        if(props.onChanged) {
-            props.onChanged(name);
-        }
+        onChanged(name);
     }
 
     const onItemClicked = (name:string):void => {
@@ -86,7 +81,7 @@ export default function SelectEx(props:SelectExProps) {
             {...other}
             defaultValue={value}
             ref={anchorEl}
-            handleChanged={onChanged}
+            onChanged={handleChanged}
             endAdornment={
                 <InputAdornment position="end">
                     <IconButton classes={{root: classes.arrowDown}} onClick={onDownClicked}>
@@ -104,14 +99,14 @@ export default function SelectEx(props:SelectExProps) {
                 style={{width:'100%',height:'100%',overflowY:'auto',overflowX:'hidden'}}>
                     <ClickAwayListener onClickAway={() => {setDropDown(false);}}>
                         <div style={{marginLeft:10,marginRight:10}}>
-                            <List style={{width:'100%'}}>
+                            <List style={{width:'100%',paddingTop:0,paddingBottom:0}}>
                                 {data.map(el => (
                                     <ListItemEx key={el} 
-                                    className={classes.dropText} 
-                                    onClick={() => {onItemClicked(el);}}
-                                    style={value !== el ? undefined : {backgroundColor:'red'}}
+                                    onClick={() => {setDropDown(false);onItemClicked(el);}}
+                                    className={classes.dropText}
+                                    style={value !== el ? undefined : {color:'#0fbdda'}}
                                     >
-                                        <Typography>{el}</Typography>
+                                        {el}
                                     </ListItemEx>
                                 ))}
                             </List>

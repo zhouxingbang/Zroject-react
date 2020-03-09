@@ -29,7 +29,7 @@ export interface TriTreeViewProps {
     showArrow?: boolean;
     defaultExpanded?: string[];
     defaultChecked?: string[];
-    checkChanged: (nodeIds:string[], isCheck:boolean) => void;
+    onCheckChanged?(nodeIds:string[], isCheck:boolean): void;
 }
 
 interface TriTreeItemProps extends TreeItemProps {
@@ -165,8 +165,8 @@ export default function TriTreeView(props: TriTreeViewProps) {
                 return;
             }
         setChecked(defaultChecked);
-        if(props.checkChanged) {
-            props.checkChanged(checked, true);
+        if(props.onCheckChanged) {
+            props.onCheckChanged(checked, true);
         }
     }, [props.defaultChecked]);
 
@@ -192,8 +192,8 @@ export default function TriTreeView(props: TriTreeViewProps) {
         else {
             setChecked(checked.filter(el => !levelIds.includes(el)));
         }
-        if(props.checkChanged) {
-            props.checkChanged(levelIds, isCheck);
+        if(props.onCheckChanged) {
+            props.onCheckChanged(levelIds, isCheck);
         }
     }
 

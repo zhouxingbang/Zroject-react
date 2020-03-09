@@ -6,23 +6,6 @@ namespace Utils {
         return (value.toFixed(decimal ? decimal : 0) + '').replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
     }
 
-    export function parseFileSize(size:number):{unit:string,value:number} {
-        let unit = 'B';
-        if(size > 1024.0) {
-            size = size/1024.0;
-            unit = 'K';
-        }
-        if(size > 1024.0) {
-            size = size/1024.0;
-            unit = 'M';
-        }
-        if(size > 1024.0) {
-            size = size/1024.0;
-            unit = 'G';
-        }
-        return {unit:unit,value:size};
-    }
-
     /**
      * rgb值转换成十六进制颜色
      * @param {"rgb()"、"rgba()"、""} rgbColor 
